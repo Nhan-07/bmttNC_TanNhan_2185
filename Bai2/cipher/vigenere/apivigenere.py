@@ -1,5 +1,9 @@
-from cipher.vigenere import VigenereCipher  
+from flask import Flask, request, jsonify
+from cipher.vigenere import VigenereCipher  # Import Vigenère Cipher
 
+app = Flask(__name__)
+
+# Khởi tạo Vigenère Cipher
 vigenere_cipher = VigenereCipher()
 
 @app.route('/api/vigenere/encrypt', methods=['POST'])
