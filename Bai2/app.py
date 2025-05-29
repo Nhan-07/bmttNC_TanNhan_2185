@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, json
-from Bai2.cipher import CaesarCipher
+from cipher.caesar import CaesarCipher
+from cipher.vigenere import VigenereCipher
+from cipher.railfence import RailFenceCipher
+from cipher.playfair import PlayFairCipher
+from cipher.transposition import TranspositionCipher
 
 app = Flask(__name__)
 
@@ -28,6 +32,27 @@ def caesar_decrypt():
     Caesar = CaesarCipher()
     decrypted_text = Caesar.decrypt_text(text, key)
     return f"text: {text}<br/>key: {key}<br/>decrypted text: {decrypted_text}"
+    
+@app.route("/vigenere")
+def vigenere():
+    return render_template('vigenere.html')
+
+@app.route("/vigenere/encrypt", methods=['POST'])
+def vigenere_encrypt():
+    text = request.form['inputPlainText']
+    key = int(request.form['inputKeyPlain'])
+    vigenere = VigenereCipher()
+    encrypted_text = vigenere.encrypt_text(text, key)
+    return f"text: {text}<br/>key: {key}<br/>encrypted text: {encrypted_text}"
+
+@app.route("/decrypt", methods=['POST'])
+def vigenere_decrypt():
+    text = request.form['inputCipherText']
+    key = int(request.form['inputKeyCipher'])
+    vigenere = VigenereCipher()
+    decrypted_text = vigenere.decrypt_text(text, key)
+    return f"text: {text}<br/>key: {key}<br/>decrypted text: {decrypted_text}"
+
 
 #main function
 if __name__ == "__main__":

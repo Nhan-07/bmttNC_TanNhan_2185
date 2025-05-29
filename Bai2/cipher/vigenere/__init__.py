@@ -1,1 +1,1 @@
-from vigenere_cipher import VigenerCipher
+from .vigenere_cipher import VigenereCipher
